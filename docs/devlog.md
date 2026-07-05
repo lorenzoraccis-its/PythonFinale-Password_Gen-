@@ -32,4 +32,21 @@ La classe Esito è risultata utile perché permette di restituire più informazi
 Per ora il sistema è ancora limitato, perché controlla solo la lunghezza, ma la struttura inizia a funzionare.  
 Nei prossimi passaggi aggiungeremo le altre regole senza dover riscrivere tutto il programma.
 
+## 5 luglio — Regola varietà caratteri
+
+Oggi abbiamo aggiunto la seconda regola concreta del progetto: `RegolaVarietaCaratteri`.  
+Questa regola controlla quali tipi di caratteri sono presenti nella password.  
+In particolare verifica se ci sono minuscole, maiuscole, numeri e simboli.  
+Abbiamo deciso di separare questi controlli in metodi diversi, così il codice resta più leggibile.  
+
+La parte più importante è stata il metodo `calcola_dimensione_alfabeto`.  
+Questo metodo non serve solo per il punteggio, ma sarà usato anche nella stima brute force.  
+Infatti, per calcolare lo spazio delle chiavi, dobbiamo sapere quanti caratteri potrebbe usare una password simile.  
+Per esempio, una password con solo minuscole ha un alfabeto stimato di 26 caratteri.  
+Una password con minuscole, maiuscole, numeri e simboli ha invece un alfabeto molto più grande.  
+
+Abbiamo aggiornato anche `gestore_regole.py`, aggiungendo la nuova regola alla lista dei controlli.  
+Ora il gestore non controlla più solo la lunghezza, ma anche la varietà dei caratteri.  
+Questo conferma che la struttura a regole indipendenti funziona: basta aggiungere una nuova classe e inserirla nella lista.  
+Il programma è ancora incompleto, ma il sistema di valutazione sta iniziando a diventare più realistico.
 

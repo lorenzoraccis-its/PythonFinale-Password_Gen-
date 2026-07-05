@@ -31,7 +31,34 @@ programmaReal/
 └── stima/
     ├── profilo_attaccante.py
     └── stimatore_brute_force.py
+```
 
-La cartella regole/ conterrà tutte le classi che verificano la robustezza della password.
+ è stata aggiunta la classe `RegolaVarietaCaratteri`, contenuta nel file:
+`programmaReal/regole/regola_varieta.py`
 
-Ogni controllo sarà separato dagli altri, così il codice sarà più ordinato e più facile da modificare.
+Questa regola controlla quali categorie di caratteri sono presenti nella password. Le categorie considerate sono:
+* Lettere minuscole
+* Lettere maiuscole
+* Cifre numeriche
+* Simboli
+
+La regola assegna un punteggio più alto quando la password usa più categorie diverse. Una password che contiene solo lettere minuscole è considerata meno robusta rispetto a una password che contiene minuscole, maiuscole, numeri e simboli.
+
+## Metodi principali
+
+La classe contiene alcuni metodi di supporto:
+* `contiene_minuscole(password)`
+* `contiene_maiuscole(password)`
+* `contiene_cifre(password)`
+* `contiene_simboli(password)`
+
+Questi metodi restituiscono `True` se la password contiene almeno un carattere della categoria controllata.
+
+È presente anche il metodo:
+* `gruppi_presenti(password)`: restituisce una lista con i gruppi di caratteri trovati nella password.
+
+### Esempio:
+```python
+password = "ciao123"
+gruppi_presenti = ["minuscole", "cifre"]
+```
