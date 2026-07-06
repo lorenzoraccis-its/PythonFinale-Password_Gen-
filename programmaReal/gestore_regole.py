@@ -2,6 +2,7 @@ from programmaReal.regole.regola_base import Esito
 from programmaReal.regole.regola_lunghezza import RegolaLunghezza
 from programmaReal.regole.regola_varieta import RegolaVarietaCaratteri
 from programmaReal.regole.regola_dizionario import RegolaDizionario
+from programmaReal.regole.regola_pattern import RegolaPattern
 
 
 class GestoreRegole:
@@ -10,6 +11,7 @@ class GestoreRegole:
             RegolaLunghezza(),
             RegolaVarietaCaratteri(),
             RegolaDizionario(),
+            RegolaPattern()
         ]
 
     def valuta(self, password: str) -> list[Esito]:
