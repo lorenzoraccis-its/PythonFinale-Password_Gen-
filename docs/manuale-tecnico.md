@@ -128,3 +128,170 @@ Se trova almeno un problema, restituisce un Esito negativo con punteggio basso e
 Esempio di suggerimento:
 Evita sequenze come abc/123/qwe e ripetizioni come aaa/111.
 Se invece non vengono trovati pattern deboli, restituisce un Esito positivo.
+
+
+# Gestore delle regole
+
+L’8 luglio è stata completata la classe `GestoreRegole`, contenuta nel file:
+
+```text
+programmaReal/gestore_regole.py
+```
+
+Questa classe ha il compito di coordinare tutte le regole di verifica della password.
+
+Prima ogni regola funzionava in modo separato.
+Con il gestore, invece, il programma può applicare tutte le regole in sequenza e raccogliere i risultati.
+
+## Lista delle regole
+
+Il gestore contiene una lista di regole:
+
+```python
+self.regole = [
+    RegolaLunghezza(),
+    RegolaVarietaCaratteri(),
+    RegolaDizionario(),
+    RegolaPattern()
+]
+```
+
+Ogni elemento della lista è un oggetto che eredita dalla classe base `Regola`.
+
+Questo permette di usare tutte le regole nello stesso modo, chiamando sempre il metodo:
+
+```python
+verifica(password)
+```
+
+## Metodo `valuta`
+
+Il metodo principale del gestore è:
+
+```python
+valuta(password)
+```
+
+Questo metodo riceve la password e applica tutte le regole presenti nella lista.
+
+Il risultato è una lista di oggetti `Esito`.
+
+Esempio logico:
+
+```text
+password
+   ↓
+RegolaLunghezza
+   ↓
+RegolaVarietaCaratteri
+   ↓
+RegolaDizionario
+   ↓
+RegolaPattern
+   ↓
+lista di Esito
+```
+
+In questo modo il resto del programma non deve sapere come funziona ogni regola internamente.
+
+## Metodo `calcola_punteggio`
+
+Il metodo:
+
+```python
+calcola_punteggio(esiti)
+```
+
+somma i punti restituiti dalle varie regole.
+
+Il punteggio massimo viene limitato a `100`, così il risultato finale rimane sempre leggibile per l’utente.
+
+Esempio:
+
+| Controllo                   |  Punti |
+| --------------------------- | -----: |
+| Controllo lunghezza         |     25 |
+| Controllo varietà caratteri |     22 |
+| Controllo dizionario        |     25 |
+| Controllo pattern           |     15 |
+| **Totale**                  | **87** |
+
+## Metodo `calcola_livello`
+
+Il metodo:
+
+```python
+calcola_livello(punteggio)
+```
+
+trasforma il punteggio numerico in un livello testuale.
+
+I livelli previsti sono:
+
+| Punteggio | Livello       |
+| --------: | ------------- |
+|   `>= 85` | Molto robusta |
+|   `>= 65` | Buona         |
+|   `>= 40` | Debole        |
+|    `< 40` | Molto debole  |
+
+Questa scelta rende il risultato più facile da capire per l’utente finale.
+
+## Metodo `ricava_suggerimenti`
+
+Il metodo:
+
+```python
+ricava_suggerimenti(esiti)
+```
+
+raccoglie tutti i suggerimenti prodotti dalle regole.
+
+Se una regola trova un problema, può restituire un suggerimento.
+
+Esempio:
+
+```text
+Porta la password almeno a 12 caratteri.
+Usa un mix di minuscole, maiuscole, numeri e simboli.
+Evita sequenze come abc/123/qwe.
+```
+
+Il gestore li raccoglie in una lista unica, così il `main.py` potrà mostrarli all’utente.
+
+## Metodo `dimensione_alfabeto`
+
+Il metodo:
+
+```python
+dimensione_alfabeto(password)
+```
+
+richiama il calcolo della dimensione dell’alfabeto dalla classe `RegolaVarietaCaratteri`.
+
+Questo valore sarà usato dallo `StimatoreBruteForce` per calcolare lo spazio delle chiavi.
+
+Esempio:
+
+```python
+password = "ciao"
+dimensione_alfabeto = 26
+
+password = "Ciao123!"
+dimensione_alfabeto = 94
+```
+
+## Vantaggio del gestore
+
+Il vantaggio principale di `GestoreRegole` è che centralizza l’esecuzione dei controlli.
+
+Senza questa classe, il `main.py` dovrebbe chiamare manualmente ogni regola.
+Con il gestore, invece, il `main.py` dovrà solo chiedere:
+
+```python
+esiti = gestore.valuta(password)
+```
+
+Questo rende il codice più ordinato e più facile da estendere.
+
+Se in futuro verrà aggiunta una nuova regola, basterà inserirla nella lista `self.regole`.
