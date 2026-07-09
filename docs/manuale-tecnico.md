@@ -295,3 +295,31 @@ esiti = gestore.valuta(password)
 Questo rende il codice più ordinato e più facile da estendere.
 
 Se in futuro verrà aggiunta una nuova regola, basterà inserirla nella lista `self.regole`.
+
+## Classi della stima brute force
+
+# 9.1 ProfiloAttaccante
+È una dataclass.
+
+Contiene :
+
+    nome: str
+    scenario: str
+    guess_al_secondo: float
+
+## 9.2 StimatoreBruteForce
+Questa classe calcola:
+
+* spazio delle chiavi;
+
+* entropia;
+
+* tempo medio;
+
+* caso peggiore.
+
+Contiene anche i tre profili di attaccante:
+
+    PC di casa        10^10 guess/s
+    Garage di GPU     10^12 guess/s
+    Supercomputer     10^16 guess/s
