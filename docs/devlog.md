@@ -50,3 +50,21 @@ Ora il gestore non controlla più solo la lunghezza, ma anche la varietà dei ca
 Questo conferma che la struttura a regole indipendenti funziona: basta aggiungere una nuova classe e inserirla nella lista.  
 Il programma è ancora incompleto, ma il sistema di valutazione sta iniziando a diventare più realistico.
 
+## 11 luglio — Primo main funzionante
+
+Oggi abbiamo collegato le varie parti del progetto dentro `main.py`.  
+Fino a questo momento avevamo sviluppato soprattutto classi separate, ma mancava ancora un punto di ingresso che le facesse lavorare insieme.  
+Abbiamo quindi fatto in modo che il programma chieda una password all’utente e poi la passi al `GestoreRegole`.
+
+Il gestore applica tutte le regole già implementate e restituisce una lista di `Esito`.  
+Da questi esiti il programma calcola il punteggio totale, il livello di sicurezza e i suggerimenti.  
+Questa fase è stata importante perché ci ha permesso di vedere il progetto funzionare davvero da terminale.
+
+Abbiamo scelto di mantenere il `main.py` abbastanza semplice, senza inserire al suo interno la logica dei singoli controlli.  
+Il suo compito è solo orchestrare il programma: leggere la password, chiamare il gestore e stampare i risultati.  
+Questa separazione rende il codice più ordinato e sarà utile quando aggiungeremo la stima brute force e l’output finale.
+
+Durante i test abbiamo verificato alcune password semplici, come parole corte o password con solo lettere minuscole.  
+Il programma ha mostrato correttamente i messaggi delle regole e i suggerimenti.  
+L’output per ora è ancora basilare, ma è sufficiente per controllare che il flusso principale funzioni.  
+Nei prossimi passaggi dovremo migliorare la parte visiva e aggiungere la stima dei tempi di brute force.
