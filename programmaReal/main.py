@@ -1,9 +1,10 @@
 from getpass import getpass
 
 from programmaReal.gestore_regole import GestoreRegole
+from programmaReal.generatore import genera_password_sicura
 
 
-def stampa_risultati(password: str):
+def stampa_risultati(password: str, mostra_password: bool = False):
     gestore = GestoreRegole()
 
     esiti = gestore.valuta(password)
@@ -15,6 +16,9 @@ def stampa_risultati(password: str):
     print("=" * 50)
     print("ANALISI PASSWORD")
     print("=" * 50)
+
+    if mostra_password:
+        print(f"Password generata: {password}")
 
     print()
     print("Controlli eseguiti:")
@@ -45,6 +49,19 @@ def main():
     password = getpass("Inserisci la password da valutare: ")
 
     stampa_risultati(password)
+
+    print()
+    scelta = input("Vuoi generare una password sicura di esempio? (s/n): ").lower().strip()
+
+    if scelta == "s":
+        password_generata = genera_password_sicura(16)
+
+        print()
+        print("PASSWORD GENERATA CON SECRETS")
+        stampa_risultati(password_generata, mostra_password=True)
+
+    print()
+    print("Fine programma.")
 
 
 if __name__ == "__main__":

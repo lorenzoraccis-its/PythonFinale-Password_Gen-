@@ -62,3 +62,16 @@ Questi metodi restituiscono `True` se la password contiene almeno un carattere d
 password = "ciao123"
 gruppi_presenti = ["minuscole", "cifre"]
 ```
+# 2. generatore password sicura (su richiesta)
+
+Alla fine dell’analisi, il programma chiede:
+
+    Vuoi generare una password sicura di esempio? (s/n):
+Se l’utente risponde:
+
+    s
+il programma genera una password sicura usando il modulo secrets. 
+Esempio:
+
+    Password generata: K7!faQ2_mP9z
+La password generata è separata dalla password inserita dall’utente (e verrà analizzata pure quella).

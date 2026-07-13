@@ -92,3 +92,10 @@ SHA-256 non viene usato qui per salvare password reali in modo sicuro, ma solo p
 * per un progetto didattico va bene usare SHA-256 per confrontare hash già presenti;
 * in un sistema reale non basterebbe salvare password con SHA-256 semplice;
 * in un sistema reale bisognerebbe usare salt e algoritmi lenti come `bcrypt`, `scrypt` o `Argon2`.
+
+## 5. Perchè secrets al posto di random
+
+Per generare password sicure è stato usato secrets.
+La scelta è stata fatta perché secrets è pensato per generare valori difficili da prevedere.
+Il modulo random è utile per simulazioni o giochi, ma non è consigliato per password o dati di sicurezza, perchè è prevedibile.
+Quindi, per coerenza con il tema del progetto, il generatore usa secrets.choice.

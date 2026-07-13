@@ -323,3 +323,16 @@ Contiene anche i tre profili di attaccante:
     PC di casa        10^10 guess/s
     Garage di GPU     10^12 guess/s
     Supercomputer     10^16 guess/s
+
+
+## generatore.py, con SECRETS 
+
+### Contiene la logica per generare password sicure.
+Usa il modulo secrets, non random.
+* Responsabilità:
+1. generare password casuali con buona varietà;
+1. garantire almeno una minuscola;
+1. garantire almeno una maiuscola;
+1. garantire almeno una cifra;
+1. garantire almeno un simbolo;
+1. restituire una password generata come esempio.
