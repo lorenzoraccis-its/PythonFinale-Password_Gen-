@@ -75,3 +75,40 @@ Esempio:
 
     Password generata: K7!faQ2_mP9z
 La password generata è separata dalla password inserita dall’utente (e verrà analizzata pure quella).
+
+
+
+## Esempio con una password debole
+```md
+# STIMATORE DI ROBUSTEZZA PASSWORD
+
+Inserisci la password da valutare:
+
+---
+
+# ANALISI PASSWORD INSERITA
+
+## RIEPILOGO GENERALE
+
+- **Punteggio totale:** 20/100
+- **Livello sicurezza:** Molto debole
+
+## CONTROLLI DI SICUREZZA
+
+| ESITO | CONTROLLO | MESSAGGIO |
+|---|---|---|
+| NO | Controllo lunghezza | Password troppo corta: 5 caratteri. |
+| NO | Controllo varietà caratteri | Varietà molto bassa: la password usa quasi un solo tipo di carattere. |
+| OK | Controllo dizionario/leak | La password non risulta presente nel dizionario locale di password deboli. |
+| OK | Controllo pattern deboli | Non sono stati trovati pattern deboli evidenti. |
+
+---
+
+# ESITO FINALE
+
+## VALIDAZIONE NON SUPERATA
+
+La password non è abbastanza robusta.
+
+La password inserita non è stata modificata dal programma.
+
