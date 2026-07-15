@@ -5,6 +5,13 @@ Tutte le regole ereditano da 'Regola' e devono implementare il metodo 'verifica'
 In questo modo uso l'ereditarietà e mantengo il progetto ordinato.
 """
 
+"""
+Classe madre comune.
+Tutte le regole ereditano da 'Regola' e devono implementare il metodo 'verifica'.
+
+In questo modo uso l'ereditarietà e mantengo il progetto ordinato.
+"""
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
