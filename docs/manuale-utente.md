@@ -111,4 +111,20 @@ Inserisci la password da valutare:
 La password non è abbastanza robusta.
 
 La password inserita non è stata modificata dal programma.
+```
+
+## 10. Problemi comuni
+
+    Errore: ModuleNotFoundError: No module named 'programmaReal'
+Questo errore può comparire se si avvia direttamente il file main.py.
+
+Comando sconsigliato:
+
+    python3 programmaReal/main.py
+
+Comando corretto:
+    python3 -m programmaReal.main
+
+**Il comando va eseguito dalla cartella principale del progetto.**
+
 

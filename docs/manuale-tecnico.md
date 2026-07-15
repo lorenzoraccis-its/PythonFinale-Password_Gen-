@@ -336,3 +336,11 @@ Usa il modulo secrets, non random.
 1. garantire almeno una cifra;
 1. garantire almeno un simbolo;
 1. restituire una password generata come esempio.
+
+
+## Grafica
+
+Abbiamo implementato la grafica per rendere la CLI un po' più felice
+
+_(L'AI ha aiutato)_
+
