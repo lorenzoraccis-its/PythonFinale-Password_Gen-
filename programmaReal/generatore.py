@@ -47,36 +47,3 @@ def password_in_dizionario(password: str) -> bool:
 
 
 
-    password = password.strip()
-
-    if password == "":
-        return genera_password_sicura(16)
-
-    controllo_pattern = RegolaPattern()
-
-    if password_in_dizionario(password):
-        return genera_password_sicura(16)
-
-    if controllo_pattern.ha_ripetizioni(password) or controllo_pattern.ha_sequenze(password):
-        return genera_password_sicura(max(16, len(password) + 4))
-
-    nuova = password
-
-    if not RegolaVarietaCaratteri.contiene_minuscole(nuova):
-        nuova += secrets.choice(string.ascii_lowercase)
-
-    if not RegolaVarietaCaratteri.contiene_maiuscole(nuova):
-        nuova += secrets.choice(string.ascii_uppercase)
-
-    if not RegolaVarietaCaratteri.contiene_cifre(nuova):
-        nuova += secrets.choice(string.digits)
-
-    if not RegolaVarietaCaratteri.contiene_simboli(nuova):
-        nuova += secrets.choice("!@#$%&*?-_")
-
-    alfabeto_extra = string.ascii_letters + string.digits + "!@#$%&*?-_"
-
-    while len(nuova) < 12:
-        nuova += secrets.choice(alfabeto_extra)
-
-    return nuova

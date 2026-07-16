@@ -344,3 +344,40 @@ Abbiamo implementato la grafica per rendere la CLI un po' più felice
 
 _(L'AI ha aiutato)_
 
+## Grafica pt.2 
+
+Essendo che la grafica l'avevamo messa tutta nel main (usando molteplici metodi)
+abbiamo pensato che rendesse il main troppo pieno, quindi abbiamo deciso di trasferire le 
+funzioni estetiche nel nuovo file **estetica.py** , in modo tale
+da rendere il **main** più pulito
+
+* di conseguenza, nel main abbiamo aggiunto : 
+
+
+    import estetica
+    estetica.<nome_metodo> (per le chiamate alle funzioni)
+
+inoltre, ci tengo a precisare che questo è un ottimo _refatcoring_ , perchè l'esperienza utente è
+rimasta **invariata**.
+
+
+## Pulizia main 
+
+Dopo aver pulito il main dalle sue funzioni estetiche, 
+abbiamo spostato 
+
+    analizza_password()
+
+nel file (tutto per lui) : 
+
+    analizzatore.py
+    class AnalizzatorePassword:
+
+in modo tale che nel file main, ci sia solo il main.
+
+### utilme pulizie
+
+Rimossi gli import che non venivano più usati, per un codice più pulito
+
+# Fine
+
