@@ -1,1 +1,0 @@
-Ho caricato in questa cartella il vecchio programma delle password, dato che lo useremo come "spunto". Chiaramente non ci basaremo su quello ma non volevamo escludere l'idea di scartare completamente una buona idea di supporto per partire.

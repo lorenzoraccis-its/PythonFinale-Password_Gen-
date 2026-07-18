@@ -1,70 +1,53 @@
-## 3 luglio — Classe base delle regole
+# Devlog
 
-Oggi abbiamo iniziato a costruire la parte centrale del progetto: il sistema delle regole.  
-Abbiamo creato il file `programmaReal/regole/regola_base.py`, dove abbiamo definito la classe astratta `Regola`.  
-Questa classe serve come base comune per tutti i controlli che verranno aggiunti in seguito.  
-L’idea è che ogni regola, anche se controlla una cosa diversa, debba avere lo stesso metodo `verifica(password)`.  
-In questo modo il resto del programma potrà usare tutte le regole nello stesso modo, senza sapere come funzionano internamente.  
+Diario di bordo del gruppo. Le date e le attività riportate di seguito corrispondono ai passaggi principali registrati nella cronologia Git del progetto.
 
-Abbiamo creato anche la classe `Esito`, usando una `dataclass`.  
-All’inizio avevamo pensato di far restituire alle regole solo `True` o `False`, ma ci siamo accorti che non bastava.  
-Per il programma servono anche un messaggio da mostrare all’utente, un punteggio e un eventuale suggerimento.  
-Per questo `Esito` contiene il nome del controllo, l’esito, i punti, il messaggio e il suggerimento.  
+## Entry
 
-Abbiamo iniziato anche il file `docs/manuale-tecnico.md`, spiegando che il progetto sarà basato su regole indipendenti.  
-Questa scelta ci sembra comoda perché permette di aggiungere nuovi controlli senza modificare troppo il resto del codice.  
-Per ora il programma non analizza ancora davvero una password, ma abbiamo definito una base abbastanza solida per continuare.
+### Settimana 1 — 1-5 luglio 2026
 
-## 4 luglio — Regola lunghezza e primo gestore
+In questa prima settimana abbiamo trasformato l'idea iniziale in una struttura concreta. Volevamo evitare un unico file pieno di controlli con molti if, perché sarebbe diventato difficile da leggere e modificare. Abbiamo quindi scelto di rappresentare ogni controllo come una regola separata.
 
-Oggi abbiamo implementato la prima regola concreta del progetto: RegolaLunghezza.  
-Questa regola controlla quanti caratteri contiene la password inserita dall’utente.  
-Abbiamo scelto una soglia minima di 12 caratteri, perché una password troppo corta è molto più facile da forzare.  
-Abbiamo previsto anche un caso migliore per password da almeno 16 caratteri, assegnando un punteggio più alto.  
+Fabio ha definito la classe astratta Regola e la dataclass Esito. La classe base obbliga tutte le regole a esporre lo stesso metodo verifica(password), mentre Esito raccoglie il risultato del controllo, i punti, un messaggio e un eventuale suggerimento. All'inizio avevamo pensato di restituire soltanto True o False, ma non sarebbe bastato per costruire un output utile per l'utente.
 
-Durante questa fase abbiamo iniziato anche il file gestore_regole.py.  
-Per ora il gestore contiene solo la regola sulla lunghezza, ma l’idea è che in seguito potrà contenere tutte le altre regole.  
-Il metodo valuta applica le regole alla password e raccoglie gli oggetti Esito.  
-Abbiamo aggiunto anche alcuni metodi per calcolare il punteggio, il livello e i suggerimenti.  
+Lorenzo ha lavorato sulla prima regola concreta, RegolaLunghezza, e sul primo GestoreRegole. Abbiamo impostato 12 caratteri come soglia minima e 16 come soglia consigliata. Il gestore raccoglie gli esiti, calcola il punteggio e converte il valore numerico in un livello leggibile.
 
-Questa parte ci ha aiutato a verificare che la scelta fatta il giorno precedente funzionasse davvero.  
-La classe Esito è risultata utile perché permette di restituire più informazioni e non solo un vero/falso.  
-Per ora il sistema è ancora limitato, perché controlla solo la lunghezza, ma la struttura inizia a funzionare.  
-Nei prossimi passaggi aggiungeremo le altre regole senza dover riscrivere tutto il programma.
+Successivamente abbiamo aggiunto RegolaVarietaCaratteri. Ci ha richiesto un po' di attenzione perché la varietà non serve soltanto al punteggio: viene usata anche per stimare la dimensione dell'alfabeto e, quindi, lo spazio delle chiavi. Abbiamo separato minuscole, maiuscole, cifre e simboli in metodi distinti per rendere il controllo più chiaro.
 
-## 5 luglio — Regola varietà caratteri
+La difficoltà principale è stata decidere quali informazioni dovessero essere responsabilità di una singola regola e quali del gestore. Abbiamo scelto che ogni regola producesse solo il proprio Esito, lasciando al gestore il compito di sommare punti e raccogliere suggerimenti. Per la settimana seguente abbiamo pianificato i controlli più specifici e il modello di stima brute-force.
 
-Oggi abbiamo aggiunto la seconda regola concreta del progetto: `RegolaVarietaCaratteri`.  
-Questa regola controlla quali tipi di caratteri sono presenti nella password.  
-In particolare verifica se ci sono minuscole, maiuscole, numeri e simboli.  
-Abbiamo deciso di separare questi controlli in metodi diversi, così il codice resta più leggibile.  
+### Settimana 2 — 6-11 luglio 2026
 
-La parte più importante è stata il metodo `calcola_dimensione_alfabeto`.  
-Questo metodo non serve solo per il punteggio, ma sarà usato anche nella stima brute force.  
-Infatti, per calcolare lo spazio delle chiavi, dobbiamo sapere quanti caratteri potrebbe usare una password simile.  
-Per esempio, una password con solo minuscole ha un alfabeto stimato di 26 caratteri.  
-Una password con minuscole, maiuscole, numeri e simboli ha invece un alfabeto molto più grande.  
+In questa settimana abbiamo completato i controlli che rendono l'analisi meno superficiale. Fabio ha implementato RegolaDizionario, basata su un insieme locale e didattico di hash SHA-256 di password deboli. Non volevamo collegarci a servizi online, sia per non introdurre dipendenze dalla rete sia per non trasmettere password a terzi.
 
-Abbiamo aggiornato anche `gestore_regole.py`, aggiungendo la nuova regola alla lista dei controlli.  
-Ora il gestore non controlla più solo la lunghezza, ma anche la varietà dei caratteri.  
-Questo conferma che la struttura a regole indipendenti funziona: basta aggiungere una nuova classe e inserirla nella lista.  
-Il programma è ancora incompleto, ma il sistema di valutazione sta iniziando a diventare più realistico.
+Per migliorare il riconoscimento delle varianti più comuni, il controllo normalizza gli spazi iniziali e finali e converte in minuscolo prima di calcolare l'hash. Abbiamo discusso il compromesso: è utile per intercettare piccole varianti di password comuni, ma non è un modello da usare per l'autenticazione reale.
 
-## 11 luglio — Primo main funzionante
+Lorenzo ha aggiunto RegolaPattern, che rileva ripetizioni di almeno tre caratteri e sequenze alfabetiche, numeriche o da tastiera. La parte che ci ha fatto perdere più tempo è stata stabilire quali sequenze considerare senza rendere il controllo troppo complicato. Abbiamo scelto una lista piccola e spiegabile: alfabeti, cifre e sequenze qwerty, asdf e zxc.
 
-Oggi abbiamo collegato le varie parti del progetto dentro `main.py`.  
-Fino a questo momento avevamo sviluppato soprattutto classi separate, ma mancava ancora un punto di ingresso che le facesse lavorare insieme.  
-Abbiamo quindi fatto in modo che il programma chieda una password all’utente e poi la passi al `GestoreRegole`.
+Abbiamo poi realizzato la parte distintiva del progetto: tre profili di attaccante con velocità diverse. Il modello calcola lo spazio delle chiavi, l'entropia e il tempo medio e peggiore per un PC di casa, un garage di GPU e un supercomputer. I valori sono dichiarati come ipotesi, non come misure universali.
 
-Il gestore applica tutte le regole già implementate e restituisce una lista di `Esito`.  
-Da questi esiti il programma calcola il punteggio totale, il livello di sicurezza e i suggerimenti.  
-Questa fase è stata importante perché ci ha permesso di vedere il progetto funzionare davvero da terminale.
+Tra l'8 e l'11 luglio abbiamo aggiornato il manuale tecnico e collegato le classi in un primo main funzionante. In questa fase abbiamo verificato manualmente password molto corte, password presenti nel dizionario e password con più categorie di caratteri. La settimana successiva era dedicata a generatore, interfaccia e pulizia del codice.
 
-Abbiamo scelto di mantenere il `main.py` abbastanza semplice, senza inserire al suo interno la logica dei singoli controlli.  
-Il suo compito è solo orchestrare il programma: leggere la password, chiamare il gestore e stampare i risultati.  
-Questa separazione rende il codice più ordinato e sarà utile quando aggiungeremo la stima brute force e l’output finale.
+### Settimana 3 — 12-16 luglio 2026
 
-Durante i test abbiamo verificato alcune password semplici, come parole corte o password con solo lettere minuscole.  
-Il programma ha mostrato correttamente i messaggi delle regole e i suggerimenti.  
-L’output per ora è ancora basilare, ma è sufficiente per controllare che il flusso principale funzioni.  
-Nei prossimi passaggi dovremo migliorare la parte visiva e aggiungere la stima dei tempi di brute force.
+Nell'ultima settimana abbiamo lavorato soprattutto sull'esperienza d'uso e sul riordino del codice. Fabio ha migliorato il flusso di analisi nel main e ha completato le parti che mostrano riepilogo, controlli, livello e suggerimenti. Il programma usa getpass, quindi la password non appare mentre viene digitata nel terminale.
+
+Lorenzo ha aggiunto il generatore di password. Abbiamo scelto secrets al posto di random perché secrets usa una sorgente adatta a valori di sicurezza. Il generatore crea password di almeno 12 caratteri e, nel normale utilizzo del programma, ne genera 16 con almeno una minuscola, una maiuscola, una cifra e un simbolo.
+
+Abbiamo dedicato tempo anche alla grafica della CLI. Le cornici, i colori ANSI, i badge e la barra del punteggio sono stati progettati con il supporto dell'IA e poi adattati al nostro programma. Dopo un primo inserimento nel main, ci siamo accorti che il file stava diventando troppo lungo e difficile da seguire.
+
+La decisione più importante è stata quindi il refactoring del 16 luglio. Abbiamo spostato la presentazione in estetica.py e il coordinamento dell'analisi in analizzatore.py. Il main ora si limita ad avviare il programma, raccogliere l'input e chiedere se generare una password di esempio.
+
+Abbiamo controllato che il refactoring non cambiasse il risultato dell'analisi: le stesse regole continuano a essere applicate nello stesso ordine e l'utente riceve gli stessi dati, ma il codice è più diviso per responsabilità. In chiusura abbiamo rivisto manuali e scelte implementative, preparando anche una piccola suite pytest per verificare i controlli principali.
+
+## Bilancio finale
+
+Siamo soddisfatti soprattutto di avere costruito un programma con una logica separata dall'interfaccia, invece di limitarci a stampare un giudizio generico sulla password. La gerarchia Regola ci ha permesso di collegare quattro verifiche diverse senza creare dipendenze inutili tra loro.
+
+Abbiamo capito meglio la differenza tra un controllo didattico e un sistema di sicurezza reale. Il dizionario locale e SHA-256 servono a mostrare un meccanismo di confronto, ma non sostituiscono un archivio di leak aggiornato né una corretta gestione delle credenziali in produzione. Allo stesso modo, i tempi del brute-force dipendono dall'hash, dall'hardware e dallo scenario.
+
+All'inizio abbiamo sottovalutato il lavoro necessario per rendere leggibile l'output. La grafica del terminale, i messaggi e le pause tra le sezioni richiedono decisioni di usabilità, non soltanto codice. La separazione finale tra main, analizzatore ed estetica è stata utile proprio per non mescolare queste responsabilità.
+
+La divisione del lavoro è stata complementare: Fabio si è concentrato soprattutto sulle regole, sul collegamento dell'analisi e sulla documentazione; Lorenzo sulla regola di lunghezza, sui profili di attaccante, sul generatore, sulla grafica e sul refactoring. Entrambi abbiamo verificato le integrazioni e discusso le scelte comuni.
+
+Con un'altra settimana avremmo aggiunto una lista di hash più completa caricata da file, opzioni da riga di comando e altri test sui casi limite. Per ora il progetto raggiunge l'obiettivo didattico perché mostra sia la valutazione qualitativa sia una stima quantitativa, dichiarando con chiarezza i suoi limiti.
