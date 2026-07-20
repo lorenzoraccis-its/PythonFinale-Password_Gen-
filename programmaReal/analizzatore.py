@@ -1,7 +1,7 @@
 
-from programmaReal.gestore_regole import GestoreRegole
+from gestore_regole import GestoreRegole
 
-from programmaReal.stima.stimatoreBF import StimatoreBruteForce
+from stima.stimatoreBF import StimatoreBruteForce
 import estetica
 
 class AnalizzatorePassword:
@@ -30,10 +30,10 @@ class AnalizzatorePassword:
             mostra_password=mostra_password,
             password=password
         )
-        input("Premi INVIO per continuare...")
+        input("\nPremi INVIO per continuare...")
         estetica.stampa_controlli(esiti)
         estetica.stampa_tempi_bruteforce(stima)
-        input("Premi INVIO per continuare...")
+        input("\nPremi INVIO per continuare...")
         return {
             "punteggio": punteggio,
             "livello": livello,

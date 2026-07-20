@@ -1,6 +1,5 @@
 import hashlib
-
-from programmaReal.regole.regola_base import Regola, Esito
+from regole.regola_base import Regola, Esito
 
 
 def calcola_hash_sha256(testo: str) -> str:

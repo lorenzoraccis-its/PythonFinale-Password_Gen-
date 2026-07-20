@@ -1,8 +1,4 @@
-from getpass import getpass
-import os
-from programmaReal.gestore_regole import GestoreRegole
-from programmaReal.generatore import genera_password_sicura
-from programmaReal.stima.stimatoreBF import StimatoreBruteForce
+
 
 class Colori:
     RESET = "\033[0m"

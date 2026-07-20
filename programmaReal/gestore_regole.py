@@ -1,8 +1,8 @@
-from programmaReal.regole.regola_base import Esito
-from programmaReal.regole.regola_lunghezza import RegolaLunghezza
-from programmaReal.regole.regola_varieta import RegolaVarietaCaratteri
-from programmaReal.regole.regola_dizionario import RegolaDizionario
-from programmaReal.regole.regola_pattern import RegolaPattern
+from regole.regola_base import Esito
+from regole.regola_lunghezza import RegolaLunghezza
+from regole.regola_varieta import RegolaVarietaCaratteri
+from regole.regola_dizionario import RegolaDizionario
+from regole.regola_pattern import RegolaPattern
 
 
 class GestoreRegole:

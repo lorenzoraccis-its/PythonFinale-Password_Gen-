@@ -1,6 +1,6 @@
 from getpass import getpass
 import os
-from programmaReal.generatore import genera_password_sicura
+from generatore import genera_password_sicura
 import estetica
 from analizzatore import AnalizzatorePassword
 

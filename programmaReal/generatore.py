@@ -1,9 +1,7 @@
 import secrets
 import string
 
-from programmaReal.regole.regola_dizionario import HASH_PASSWORD_DEBOLI, calcola_hash_sha256
-from programmaReal.regole.regola_pattern import RegolaPattern
-from programmaReal.regole.regola_varieta import RegolaVarietaCaratteri
+from regole.regola_dizionario import HASH_PASSWORD_DEBOLI, calcola_hash_sha256
 
 
 def genera_password_sicura(lunghezza: int = 16) -> str:

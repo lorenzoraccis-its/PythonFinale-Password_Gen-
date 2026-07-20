@@ -1,6 +1,6 @@
 import string
 
-from programmaReal.regole.regola_base import Regola, Esito
+from regole.regola_base import Regola, Esito
 
 
 class RegolaVarietaCaratteri(Regola):

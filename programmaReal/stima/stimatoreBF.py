@@ -1,6 +1,5 @@
 import math
-
-from programmaReal.stima.profilo_attaccante import ProfiloAttaccante
+from stima.profilo_attaccante import ProfiloAttaccante
 
 
 class StimatoreBruteForce:
@@ -36,13 +35,6 @@ class StimatoreBruteForce:
         return dimensione_alfabeto ** lunghezza
 
     def calcola_entropia(self, lunghezza: int, dimensione_alfabeto: int) -> float:
-        """
-        Formula:
-        H = log2(N)
-
-        Siccome N = |alfabeto| ^ L, posso calcolare:
-        H = L * log2(|alfabeto|)
-        """
 
         if lunghezza <= 0 or dimensione_alfabeto <= 0:
             return 0.0
