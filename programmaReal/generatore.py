@@ -5,10 +5,6 @@ from regole.regola_dizionario import HASH_PASSWORD_DEBOLI, calcola_hash_sha256
 
 
 def genera_password_sicura(lunghezza: int = 16) -> str:
-    """
-    Generatore di password sicure.
-    Uso secrets e non random, perché secrets è più adatto per scopi di sicurezza.
-    """
 
     if lunghezza < 12:
         lunghezza = 12

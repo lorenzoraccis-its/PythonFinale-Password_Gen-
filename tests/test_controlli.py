@@ -1,6 +1,6 @@
-from programmaReal.generatore import genera_password_sicura
-from programmaReal.gestore_regole import GestoreRegole
-from programmaReal.stima.stimatoreBF import StimatoreBruteForce
+from generatore import genera_password_sicura
+from gestore_regole import GestoreRegole
+from stima.stimatoreBF import StimatoreBruteForce
 
 
 def test_password_debole_viene_segnalata():

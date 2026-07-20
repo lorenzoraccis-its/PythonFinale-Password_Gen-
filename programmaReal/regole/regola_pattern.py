@@ -6,10 +6,7 @@ class RegolaPattern(Regola):
         super().__init__("Controllo pattern deboli")
 
     def ha_ripetizioni(self, password: str) -> bool:
-        """
-        Controlla ripetizioni tipo:
-        aaa, 111, !!!, zzz
-        """
+
 
         for i in range(len(password) - 2):
             if password[i] == password[i + 1] == password[i + 2]:
@@ -18,10 +15,7 @@ class RegolaPattern(Regola):
         return False
 
     def ha_sequenze(self, password: str) -> bool:
-        """
-        Controlla sequenze semplici tipo:
-        abc, bcd, 123, 234, qwe
-        """
+
 
         password = password.lower()
 

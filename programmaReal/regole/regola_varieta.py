@@ -48,13 +48,7 @@ class RegolaVarietaCaratteri(Regola):
 
     @classmethod
     def calcola_dimensione_alfabeto(cls, password: str) -> int:
-        """
-        Calcola |alfabeto| in base ai tipi di caratteri presenti.
-        Esempio:
-        - solo minuscole: 26
-        - minuscole + maiuscole: 52
-        - minuscole + maiuscole + cifre + simboli: 94 circa
-        """
+
 
         dimensione = 0
 
